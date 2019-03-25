@@ -1,14 +1,28 @@
 package tudelft.ghappy;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class GHappyTest {
 
-    @ParameterizedTest(name = "{0} : ({1}) = {2}")
-    @CsvSource({"NullString, null, true", "EmptyString, \"\", true",
-                "OneCharString, a, true", "OneCharString, g, false",
+    @Test
+    public void NullString(){
+        GHappy gh = new GHappy();
+        Assertions.assertThrows(AssertionError.class, () -> {
+            boolean result = gh.gHappy(null); });
+    }
+
+    @Test
+    public void EmptyString(){
+        GHappy gh = new GHappy();
+        boolean result = gh.gHappy("");
+        Assertions.assertTrue(result);
+    }
+
+    @ParameterizedTest(name = "{0} : (\"{1}\") = {2}")
+    @CsvSource({"OneCharString, a, true", "OneCharString, g, false",
                 "TwoCharsString, bw, true", "TwoCharsString, gj, false", "TwoCharsString, zg, false", "TwoCharsString, gg, true",
                 "ThreeCharsString, jto, true", "ThreeCharsString, gsg, false", "ThreeCharsString, ggf, true",
                 "ThreeCharsString, hgg, true", "ThreeCharsString, ggg, true",
